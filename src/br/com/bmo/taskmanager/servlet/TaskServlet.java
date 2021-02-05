@@ -19,10 +19,10 @@ public class TaskServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Creating new Task");
 		PrintWriter out = response.getWriter();
-		String id = request.getParameter("id");
+		String id = request.getParameter("taskName");
 		out.println("<html><body>Task " + id + " Created</body></html>");
 	}
 
