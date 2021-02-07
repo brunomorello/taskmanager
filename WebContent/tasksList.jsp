@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, br.com.bmo.taskmanager.model.TaskModel" %>
-<%  List<TaskModel> tasksList = (List<TaskModel>) request.getAttribute("tasksList"); %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +11,9 @@
 </head>
 <body>
 	<ul>
-	<% for (TaskModel taskModel : tasksList) { %>
-		<li> <%= taskModel.getDescription() %></li>
-	<% } %>
+		<c:forEach items="${tasksList}" var="task">
+			<li> ${task.description} </li>
+		</c:forEach>
 	</ul>
 </body>
 </html>
