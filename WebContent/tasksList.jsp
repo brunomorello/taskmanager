@@ -13,8 +13,9 @@
 	<ul>
 		<c:forEach items="${tasksList}" var="task">
 			<li>
-				${task.description}
-				<fmt:formatDate value="${task.createdAt}" pattern="YYYY-MM-dd"/>
+				<b>Task:</b> ${task.description} -
+				<b>Created At:</b> <fmt:formatDate value="${task.createdAt}" pattern="YYYY-MM-dd"/> -
+				<b>Due Date:</b> <fmt:formatDate value="${task.dueDate}" pattern="YYYY-MM-dd"/>
 			</li>
 		</c:forEach>
 	</ul>
