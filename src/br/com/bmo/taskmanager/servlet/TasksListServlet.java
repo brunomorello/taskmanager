@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.bmo.taskmanager.dao.TaskDao;
 import br.com.bmo.taskmanager.model.TaskModel;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,15 +26,10 @@ public class TasksListServlet extends HttpServlet {
 		TaskDao taskDao = new TaskDao();
 		List<TaskModel> tasksList = taskDao.getTasks();
 		
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE html>");
-		out.println("<html><body>");
-		out.println("<ul>");
-		for (TaskModel taskModel : tasksList) {
-			out.println("<li>" + taskModel.getDescription() + "</li>");
-		}
-		out.println("</ul>");
-		out.println("</body></html>");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/tasksList.jsp");
+		request.setAttribute("tasksList", tasksList);
+		requestDispatcher.forward(request, response);
+		
 	}
 
 }

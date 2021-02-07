@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import br.com.bmo.taskmanager.dao.TaskDao;
 import br.com.bmo.taskmanager.model.TaskModel;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,9 +29,10 @@ public class TaskServlet extends HttpServlet {
 		TaskDao taskDao = new TaskDao();
 		taskDao.createTask(taskModel);
 		
-		PrintWriter out = response.getWriter();
-		String id = request.getParameter("taskName");
-		out.println("<html><body>Task " + id + " Created</body></html>");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/newTaskCreated.jsp");
+		request.setAttribute("task", taskModel.getDescription());
+		requestDispatcher.forward(request, response);
+
 	}
 
 }
