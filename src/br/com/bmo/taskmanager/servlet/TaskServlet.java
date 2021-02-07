@@ -41,9 +41,11 @@ public class TaskServlet extends HttpServlet {
 		TaskDao taskDao = new TaskDao();
 		taskDao.createTask(taskModel);
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/newTaskCreated.jsp");
-		request.setAttribute("task", taskModel.getDescription());
-		requestDispatcher.forward(request, response);
+		response.sendRedirect("tasksList");
+		
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/newTaskCreated.jsp");
+//		request.setAttribute("task", taskModel.getDescription());
+//		requestDispatcher.forward(request, response);
 
 	}
 
