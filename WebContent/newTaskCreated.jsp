@@ -1,6 +1,6 @@
 <%
 	//scriplet
-	String taskDesc = (String) request.getAttribute("task");
+	// String taskDesc = (String) request.getAttribute("task");
 %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,6 +13,6 @@
 </head>
 <body>
 	<h2>Task Created</h2>
-	<p><%= taskDesc %></p>
+	<p> ${ task } </p>
 </body>
 </html>
