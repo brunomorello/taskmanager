@@ -1,6 +1,10 @@
 package br.com.bmo.taskmanager.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import br.com.bmo.taskmanager.dao.TaskDao;
 import br.com.bmo.taskmanager.model.TaskModel;
 import javax.servlet.RequestDispatcher;
@@ -22,7 +26,17 @@ public class TaskServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		TaskModel taskModel = new TaskModel(request.getParameter("taskName"));
+		String taskName = request.getParameter("taskName");
+		Date dueDate = null; 
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			dueDate = sdf.parse(request.getParameter("dueDate"));
+		} catch (ParseException e) {
+			throw new ServletException(e);
+		}
+		
+		TaskModel taskModel = new TaskModel(taskName, dueDate);
 		
 		TaskDao taskDao = new TaskDao();
 		taskDao.createTask(taskModel);

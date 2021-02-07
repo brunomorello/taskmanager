@@ -12,7 +12,10 @@
 <body>
 	<ul>
 		<c:forEach items="${tasksList}" var="task">
-			<li> ${task.description} </li>
+			<li>
+				${task.description}
+				<fmt:formatDate value="${task.createdAt}" pattern="YYYY-MM-dd"/>
+			</li>
 		</c:forEach>
 	</ul>
 </body>
