@@ -1,10 +1,11 @@
 package br.com.bmo.taskmanager.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class TaskModel {
 
-	private String uuid;
+	private String uuid = UUID.randomUUID().toString();
 	private String description;
 	private Date createdAt = new Date();
 	private Date dueDate;
