@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:url value="/deleteTask" var="deleteTask"/>
 <c:url value="/task" var="viewTask"/>
+<c:url value="/formTask.jsp" var="formTask" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,5 +25,8 @@
 			</li>
 		</c:forEach>
 	</ul>
+	<p>
+		<a href="${formTask}">New task</a>
+	</p>
 </body>
 </html>
