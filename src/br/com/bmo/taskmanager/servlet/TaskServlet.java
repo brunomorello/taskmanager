@@ -1,18 +1,17 @@
 package br.com.bmo.taskmanager.servlet;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import br.com.bmo.taskmanager.dao.TaskDao;
-import br.com.bmo.taskmanager.model.TaskModel;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.com.bmo.taskmanager.actions.TaskCreate;
+import br.com.bmo.taskmanager.actions.TaskDelete;
+import br.com.bmo.taskmanager.actions.TaskUpdate;
+import br.com.bmo.taskmanager.actions.TasksList;
 
 /**
  * Servlet implementation class TaskServlet
@@ -20,56 +19,40 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/task")
 public class TaskServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String uuid = request.getParameter("uuid");
-		String taskName = request.getParameter("taskName");
-		Date dueDate = null; 
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			dueDate = sdf.parse(request.getParameter("dueDate"));
-		} catch (ParseException e) {
-			throw new ServletException(e);
-		}
-		
-		TaskDao taskDao = new TaskDao();
-		
-		if (!uuid.isEmpty()) {
-			System.out.println("updating task");
-			TaskModel taskFound = taskDao.selectTaskByUUID(uuid);
-			taskFound.setDescription(taskName);
-			taskFound.setDueDate(dueDate);
-			taskDao.updateTask(taskFound);
-		} else {
-			System.out.println("creating task");
-			TaskModel taskModel = new TaskModel(taskName, dueDate);
-			taskDao.createTask(taskModel);			
-		}
-			
-		response.sendRedirect("tasksList");
-		
-//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/newTaskCreated.jsp");
-//		request.setAttribute("task", taskModel.getDescription());
-//		requestDispatcher.forward(request, response);
-
-	}
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
 		
-		String uuid = request.getParameter("uuid");
+		if (action.equals("list")) {
+			System.out.println("Displaying Tasks List");
+			TasksList controller = new TasksList();
+			controller.execute(request, response);
+		}
 		
-		TaskDao taskDao = new TaskDao();
-		TaskModel task = taskDao.selectTaskByUUID(uuid);
+		if (action.equals("create")) {
+			System.out.println("Creating Task");
+			TaskCreate controller = new TaskCreate();
+			controller.execute(request, response);
+		}
 		
-		request.setAttribute("task", task);
-		RequestDispatcher reqDisp = request.getRequestDispatcher("formTask.jsp");
-		reqDisp.forward(request, response);		
+		if (action.equals("getTask")) {
+			System.out.println("Getting Task");
+			TaskUpdate controller = new TaskUpdate();
+			controller.getTask(request, response);
+		}
 		
+		if (action.equals("update")) {
+			System.out.println("Updating Tasks");
+			TaskUpdate controller = new TaskUpdate();
+			controller.execute(request, response);
+		}
+		
+		if (action.equals("delete")) {
+			System.out.println("Deleting Tasks");
+			TaskDelete controller = new TaskDelete();
+			controller.execute(request, response);
+		}
 	}
 
 }

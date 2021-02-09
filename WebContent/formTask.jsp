@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:url value="/task" var="newTaskUri"/>
+<c:url value="/task?action=create" var="newTaskUri"/>
+<c:url value="/task?action=update" var="updateTaskUri"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,13 @@
 <title>Task Form</title>
 </head>
 <body>
-	<form action="${newTaskUri}" method="post">
+	<c:if test="${empty task.uuid}">
+		<form action="${newTaskUri}" method="post">		
+	</c:if>
+	
+	<c:if test="${not empty task.uuid}">
+		<form action="${updateTaskUri}" method="post">
+	</c:if>
 		<label>Description</label>
 		<input type="text" name="taskName" value="${task.description}"/>
 		
