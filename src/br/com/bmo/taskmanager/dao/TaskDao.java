@@ -24,6 +24,30 @@ public class TaskDao {
 		tasks.add(task);
 	}
 	
+	public void updateTask(TaskModel task) {
+
+		for (int i = 0; i < tasks.size(); i++) {
+			TaskModel currentTask = tasks.get(i);
+			if (currentTask.getUuid().equals(task.getUuid())) {
+				tasks.remove(i);
+				tasks.add(task);
+			}			
+		}
+	}
+	
+	public TaskModel selectTaskByUUID(String uuid) {
+		
+		Iterator<TaskModel> iterator = tasks.iterator();
+		
+		while(iterator.hasNext()) {
+			TaskModel currentTask = iterator.next();
+			if (currentTask.getUuid().equals(uuid))
+				return currentTask;
+		}
+		
+		return null;
+	}
+	
 	public void deleteTask(String uuid) {
 		Iterator<TaskModel> iterator = tasks.iterator();
 		

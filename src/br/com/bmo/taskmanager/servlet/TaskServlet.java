@@ -26,6 +26,7 @@ public class TaskServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String uuid = request.getParameter("uuid");
 		String taskName = request.getParameter("taskName");
 		Date dueDate = null; 
 		
@@ -36,17 +37,39 @@ public class TaskServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		TaskModel taskModel = new TaskModel(taskName, dueDate);
-		
 		TaskDao taskDao = new TaskDao();
-		taskDao.createTask(taskModel);
 		
+		if (!uuid.isEmpty()) {
+			System.out.println("updating task");
+			TaskModel taskFound = taskDao.selectTaskByUUID(uuid);
+			taskFound.setDescription(taskName);
+			taskFound.setDueDate(dueDate);
+			taskDao.updateTask(taskFound);
+		} else {
+			System.out.println("creating task");
+			TaskModel taskModel = new TaskModel(taskName, dueDate);
+			taskDao.createTask(taskModel);			
+		}
+			
 		response.sendRedirect("tasksList");
 		
 //		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/newTaskCreated.jsp");
 //		request.setAttribute("task", taskModel.getDescription());
 //		requestDispatcher.forward(request, response);
 
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String uuid = request.getParameter("uuid");
+		
+		TaskDao taskDao = new TaskDao();
+		TaskModel task = taskDao.selectTaskByUUID(uuid);
+		
+		request.setAttribute("task", task);
+		RequestDispatcher reqDisp = request.getRequestDispatcher("formTask.jsp");
+		reqDisp.forward(request, response);		
+		
 	}
 
 }
