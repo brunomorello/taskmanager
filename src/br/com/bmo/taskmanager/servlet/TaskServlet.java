@@ -2,16 +2,14 @@ package br.com.bmo.taskmanager.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.bmo.taskmanager.actions.TaskCreate;
-import br.com.bmo.taskmanager.actions.TaskDelete;
-import br.com.bmo.taskmanager.actions.TaskUpdate;
-import br.com.bmo.taskmanager.actions.TasksList;
+import br.com.bmo.taskmanager.actions.ControllerAction;
 
 /**
  * Servlet implementation class TaskServlet
@@ -22,37 +20,29 @@ public class TaskServlet extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String action = request.getParameter("action");
 		
-		if (action.equals("list")) {
-			System.out.println("Displaying Tasks List");
-			TasksList controller = new TasksList();
-			controller.execute(request, response);
-		}
+		try {
+			Class obj = Class.forName("br.com.bmo.taskmanager.actions." + action);
+			ControllerAction controller = (ControllerAction) obj.newInstance();
+
+			String dispatcherConfig = controller.execute(request, response);
+			
+			String dispatcherType = dispatcherConfig.split(":")[0];
+			String dispatcherTo = dispatcherConfig.split(":")[1]; 
+			
+			if (dispatcherType.equals("forward")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/view/" + dispatcherTo);
+				requestDispatcher.forward(request, response);
+			} else {
+				response.sendRedirect(dispatcherTo);
+			}
+			
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			throw new ServletException(e);
+		} 
 		
-		if (action.equals("create")) {
-			System.out.println("Creating Task");
-			TaskCreate controller = new TaskCreate();
-			controller.execute(request, response);
-		}
-		
-		if (action.equals("getTask")) {
-			System.out.println("Getting Task");
-			TaskUpdate controller = new TaskUpdate();
-			controller.getTask(request, response);
-		}
-		
-		if (action.equals("update")) {
-			System.out.println("Updating Tasks");
-			TaskUpdate controller = new TaskUpdate();
-			controller.execute(request, response);
-		}
-		
-		if (action.equals("delete")) {
-			System.out.println("Deleting Tasks");
-			TaskDelete controller = new TaskDelete();
-			controller.execute(request, response);
-		}
 	}
 
 }

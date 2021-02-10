@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:url value="/task?action=create" var="newTaskUri"/>
-<c:url value="/task?action=update" var="updateTaskUri"/>
+<c:url value="/task?action=CreateTask" var="newTaskUri"/>
+<c:url value="/task?action=UpdateTask" var="updateTaskUri"/>
 <!DOCTYPE html>
 <html>
 <head>

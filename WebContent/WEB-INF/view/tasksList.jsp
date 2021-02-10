@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:url value="/task" var="taskUri"/>
-<c:url value="/formTask.jsp" var="formTask" />
+<c:url value="/task?action=NewTaskForm" var="formTask" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +19,8 @@
 				<b>Task:</b> ${task.description} -
 				<b>Created At:</b> <fmt:formatDate value="${task.createdAt}" pattern="YYYY-MM-dd"/> -
 				<b>Due Date:</b> <fmt:formatDate value="${task.dueDate}" pattern="YYYY-MM-dd"/>
-				<a href="${taskUri}?action=getTask&uuid=${task.uuid}">Edit</a>
-				<a href="${taskUri}?action=delete&uuid=${task.uuid}">Remove</a>
+				<a href="${taskUri}?action=GetTask&uuid=${task.uuid}">Edit</a>
+				<a href="${taskUri}?action=DeleteTask&uuid=${task.uuid}">Remove</a>
 			</li>
 		</c:forEach>
 	</ul>

@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.bmo.taskmanager.dao.TaskDao;
 import br.com.bmo.taskmanager.model.TaskModel;
 
-public class TaskCreate {
+public class CreateTask implements ControllerAction {
 
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String taskName = request.getParameter("taskName");
 		Date dueDate = null; 
@@ -29,7 +30,7 @@ public class TaskCreate {
 		TaskDao taskDao = new TaskDao();
 		TaskModel taskModel = new TaskModel(taskName, dueDate);
 		taskDao.createTask(taskModel);			
-			
-		response.sendRedirect("task?action=list");
+		
+		return "redirect:task?action=ListTask";
 	}
 }
