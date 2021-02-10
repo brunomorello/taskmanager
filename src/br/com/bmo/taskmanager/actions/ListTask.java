@@ -17,6 +17,8 @@ public class ListTask implements ControllerAction {
 		TaskDao taskDao = new TaskDao();
 		List<TaskModel> tasksList = taskDao.getTasks();
 		
+		tasksList.sort((task1, task2) -> { return task1.getDescription().compareTo(task2.getDescription()); });
+		
 		request.setAttribute("tasksList", tasksList);
 
 		return "forward:tasksList.jsp";
