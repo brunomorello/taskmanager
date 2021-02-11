@@ -6,8 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.bmo.taskmanager.dao.FakeDB;
-import br.com.bmo.taskmanager.model.User;
+import br.com.bmo.taskmanager.auth.Authenticate;
 
 public class Login implements ControllerAction {
 
@@ -18,13 +17,16 @@ public class Login implements ControllerAction {
 		String login = request.getParameter("login");
 		String pwd = request.getParameter("pwd");
 		
-		FakeDB queryUser = new FakeDB();
-		User user = queryUser.selectUserByLogin(login);
-		
-		System.out.println(user.canLogin(login, pwd));
 		System.out.println("user trying to login: " + login);
 		
-		return "redirect:controller?action=ListTask";
+		Authenticate auth = new Authenticate();
+		if (auth.canAccess(login, pwd)) {
+			System.out.println("authenticated!!");
+			return "redirect:controller?action=ListTask";
+		} 
+		
+		return "redirect:controller?action=LoginForm&error=notAuth";
+		
 	}
 
 }
