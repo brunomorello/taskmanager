@@ -14,7 +14,7 @@ import br.com.bmo.taskmanager.actions.ControllerAction;
 /**
  * Servlet implementation class TaskServlet
  */
-@WebServlet("/task")
+@WebServlet("/controller")
 public class TaskServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

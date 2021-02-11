@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.bmo.taskmanager.dao.TaskDao;
+import br.com.bmo.taskmanager.dao.FakeDB;
 import br.com.bmo.taskmanager.model.TaskModel;
 
 public class CreateTask implements ControllerAction {
@@ -27,10 +27,10 @@ public class CreateTask implements ControllerAction {
 			throw new ServletException(e);
 		}
 		
-		TaskDao taskDao = new TaskDao();
+		FakeDB taskDao = new FakeDB();
 		TaskModel taskModel = new TaskModel(taskName, dueDate);
 		taskDao.createTask(taskModel);			
 		
-		return "redirect:task?action=ListTask";
+		return "redirect:controller?action=ListTask";
 	}
 }

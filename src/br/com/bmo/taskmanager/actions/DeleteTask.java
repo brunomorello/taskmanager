@@ -5,7 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.bmo.taskmanager.dao.TaskDao;
+import br.com.bmo.taskmanager.dao.FakeDB;
 
 public class DeleteTask implements ControllerAction {
 
@@ -14,9 +14,9 @@ public class DeleteTask implements ControllerAction {
 		String taskUUID = request.getParameter("uuid");
 		System.out.println("taskUUID " + taskUUID);
 		
-		TaskDao taskDao = new TaskDao();
+		FakeDB taskDao = new FakeDB();
 		taskDao.deleteTask(taskUUID);
 		
-		return "redirect:task?action=ListTask";
+		return "redirect:controller?action=ListTask";
 	}
 }

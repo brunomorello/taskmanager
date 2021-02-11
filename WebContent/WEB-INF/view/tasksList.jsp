@@ -3,8 +3,8 @@
 <%@ page import="java.util.List, br.com.bmo.taskmanager.model.TaskModel" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:url value="/task" var="taskUri"/>
-<c:url value="/task?action=NewTaskForm" var="formTask" />
+<c:url value="/controller" var="taskUri"/>
+<c:url value="/controller?action=NewTaskForm" var="formTask" />
 <!DOCTYPE html>
 <html>
 <head>
