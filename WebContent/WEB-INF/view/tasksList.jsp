@@ -12,7 +12,7 @@
 <title>List Tasks</title>
 </head>
 <body>
-	<p>TODO Tasks:</p>
+	<p>Hello, ${logedUser.firstName} here are your TODO Tasks:</p>
 	<ul>
 		<c:forEach items="${tasksList}" var="task">
 			<li>

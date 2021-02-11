@@ -5,8 +5,10 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.bmo.taskmanager.auth.Authenticate;
+import br.com.bmo.taskmanager.model.User;
 
 public class Login implements ControllerAction {
 
@@ -20,8 +22,12 @@ public class Login implements ControllerAction {
 		System.out.println("user trying to login: " + login);
 		
 		Authenticate auth = new Authenticate();
-		if (auth.canAccess(login, pwd)) {
+		User logedUser = auth.canAccess(login, pwd); 
+		
+		if (logedUser != null) {
 			System.out.println("authenticated!!");
+			HttpSession session = request.getSession();
+			session.setAttribute("logedUser", logedUser);
 			return "redirect:controller?action=ListTask";
 		} 
 		

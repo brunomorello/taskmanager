@@ -5,7 +5,7 @@ import br.com.bmo.taskmanager.model.User;
 
 public class Authenticate {
 
-	public boolean canAccess(String login, String pwd) {
+	public User canAccess(String login, String pwd) {
 		
 		FakeDB fakeDB = new FakeDB();
 		User user = fakeDB.selectUserByLogin(login);
@@ -13,9 +13,9 @@ public class Authenticate {
 		System.out.println(login + "user.canLogin? " + user.canLogin(login, pwd));
 		
 		if (user != null && user.canLogin(login, pwd)) {
-			return true;
+			return user;
 		}
 		
-		return false;
+		return null;
 	}
 }
