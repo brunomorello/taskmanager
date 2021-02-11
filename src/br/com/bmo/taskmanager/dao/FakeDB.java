@@ -57,12 +57,8 @@ public class FakeDB {
 	
 	public User selectUserByLogin(String login) {
 		
-		Iterator<User> iterator = users.iterator();
-		
-		while (iterator.hasNext()) {
-			User currentUser = iterator.next();
-			if (currentUser.getLogin().equals(login))
-				return currentUser;
+		for (User user : users) {
+			if (user.getLogin().equals(login)) return user;
 		}
 		
 		return null;
