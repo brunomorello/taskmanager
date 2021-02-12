@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:url value="/controller" var="controllerRoot"/>
-<c:param name="error" var="errorMessage"></c:param>
 <!DOCTYPE html>
 <html>
 <head>
