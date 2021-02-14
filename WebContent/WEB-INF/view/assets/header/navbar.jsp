@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:url value="/controller?action=NewTaskForm" var="formTask" />
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">Taskmanager</a>
@@ -16,7 +17,7 @@
 				
 				<c:if test="${not empty logedUser}">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Create Task</a>
+						<a class="nav-link" href="${formTask}">Create Task</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Create Task Category</a>

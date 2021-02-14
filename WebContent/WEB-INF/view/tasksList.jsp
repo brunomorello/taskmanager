@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:url value="/controller" var="taskUri"/>
-<c:url value="/controller?action=NewTaskForm" var="formTask" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,22 +16,23 @@
 
 	<c:import url="assets/header/navbar.jsp"/>
 	
-	<br/>
-	<ul>
+	<div class="container">
 		<c:forEach items="${tasksList}" var="task">
-			<li>
-				<b>Task:</b> ${task.description} -
-				<b>Created At:</b> <fmt:formatDate value="${task.createdAt}" pattern="YYYY-MM-dd"/> -
-				<b>Due Date:</b> <fmt:formatDate value="${task.dueDate}" pattern="YYYY-MM-dd"/>
-				<a href="${taskUri}?action=GetTask&uuid=${task.uuid}">Edit</a>
-				<a href="${taskUri}?action=DeleteTask&uuid=${task.uuid}">Remove</a>
-			</li>
-		</c:forEach>
-	</ul>
-	<br/>
-	<p>
-		<a href="${formTask}">New task</a>
-	</p>
+			<div class="card m-3" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">${task.description}</h5>
+					<h6 class="card-subtitle mb-2 text-muted">
+						<b>Due Date:</b> <fmt:formatDate value="${task.dueDate}" pattern="YYYY-MM-dd"/>
+					</h6>
+					<p class="card-text">${task.longDescription}</p>
+	
+					<a href="${taskUri}?action=GetTask&uuid=${task.uuid}" class="card-link">Edit</a>
+					<a href="${taskUri}?action=DeleteTask&uuid=${task.uuid}" class="card-link">Remove</a>
+				</div>
+			</div>
+		</c:forEach>		
+	</div>
+	
 	<c:import url="assets/thirdparty/bootstrap/bootstrap_js_import.jsp"/>
 </body>
 </html>

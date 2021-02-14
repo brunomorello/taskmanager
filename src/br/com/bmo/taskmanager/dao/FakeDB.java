@@ -15,7 +15,10 @@ public class FakeDB {
 	
 	static {
 		TaskModel task1 = new TaskModel("task_test_1", new Date());
+		task1.setLongDescription("Example Task");
+		
 		TaskModel task2 = new TaskModel("task_test_2", new Date());
+		task2.setLongDescription("Example Task");
 		
 		FakeDB taskDao = new FakeDB();
 		taskDao.createTask(task1);
