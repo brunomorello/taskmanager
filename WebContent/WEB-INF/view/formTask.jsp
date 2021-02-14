@@ -11,6 +11,8 @@
 <title>Task Form</title>
 </head>
 <body>
+	<c:import url="logout-link.jsp" />
+
 	<c:if test="${empty task.uuid}">
 		<form action="${newTaskUri}" method="post">		
 	</c:if>

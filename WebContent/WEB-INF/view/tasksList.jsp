@@ -12,7 +12,9 @@
 <title>List Tasks</title>
 </head>
 <body>
+	<c:import url="logout-link.jsp" />
 	<p>Hello, ${logedUser.firstName} here are your TODO Tasks:</p>
+	<br/>
 	<ul>
 		<c:forEach items="${tasksList}" var="task">
 			<li>
@@ -24,6 +26,7 @@
 			</li>
 		</c:forEach>
 	</ul>
+	<br/>
 	<p>
 		<a href="${formTask}">New task</a>
 	</p>
