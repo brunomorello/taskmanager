@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
 
 import br.com.bmo.taskmanager.dao.FakeDB;
 import br.com.bmo.taskmanager.model.TaskModel;
@@ -29,11 +30,27 @@ public class TaskService extends HttpServlet {
 		FakeDB db = new FakeDB();
 		List<TaskModel> tasks = db.getTasks();
 		
-		Gson gson = new Gson();
-		String tasksListJSON = gson.toJson(tasks);
+		String respType = request.getHeader("accept");
+		String respStr = null;
 		
-		response.setContentType("application/json");
-		response.getWriter().print(tasksListJSON);
+		if (respType.endsWith("xml")) {
+			XStream xstream = new XStream();
+			xstream.alias("task", TaskModel.class);
+			respStr = xstream.toXML(tasks);
+			
+			response.setContentType("Application/xml");
+		} else if (respType.endsWith("json")){			
+			Gson gson = new Gson();
+			respStr = gson.toJson(tasks);
+			
+			response.setContentType("Application/json");
+		} else {
+			response.setContentType("Application/json");
+//			response.setStatus(204);
+			respStr = "{\"error\":\"Invalid Accept Content\"}";
+		}
+		
+		response.getWriter().print(respStr);
 		
 	}
 
