@@ -21,8 +21,8 @@ public class FakeDB {
 		taskDao.createTask(task1);
 		taskDao.createTask(task2);
 		
-		User user = new User("bruno", "bmo", "123");
-		User user2 = new User("fulano", "foo", "bar");
+		User user = new User("Bruno", "bmo", "123");
+		User user2 = new User("Fulano", "foo", "bar");
 		users.add(user);
 		users.add(user2);
 	}
