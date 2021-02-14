@@ -8,12 +8,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>List Tasks</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="widt=device-width, initial-scale=1">
+	<c:import url="assets/thirdparty/bootstrap/bootstrap_css_import.jsp"/>
+	<title>List Tasks</title>
 </head>
 <body>
-	<c:import url="logout-link.jsp" />
-	<p>Hello, ${logedUser.firstName} here are your TODO Tasks:</p>
+
+	<c:import url="assets/header/navbar.jsp"/>
+	
 	<br/>
 	<ul>
 		<c:forEach items="${tasksList}" var="task">
@@ -30,5 +33,6 @@
 	<p>
 		<a href="${formTask}">New task</a>
 	</p>
+	<c:import url="assets/thirdparty/bootstrap/bootstrap_js_import.jsp"/>
 </body>
 </html>
