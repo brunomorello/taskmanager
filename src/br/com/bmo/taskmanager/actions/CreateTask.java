@@ -17,7 +17,8 @@ public class CreateTask implements ControllerAction {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String taskName = request.getParameter("taskName");
+		String taskDescription = request.getParameter("taskDescription");
+		String taskLongDescription = request.getParameter("taskLongDescription");
 		Date dueDate = null; 
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -28,7 +29,8 @@ public class CreateTask implements ControllerAction {
 		}
 		
 		FakeDB taskDao = new FakeDB();
-		TaskModel taskModel = new TaskModel(taskName, dueDate);
+		TaskModel taskModel = new TaskModel(taskDescription, dueDate);
+		taskModel.setLongDescription(taskLongDescription);
 		taskDao.createTask(taskModel);			
 		
 		return "redirect:controller?action=ListTask";

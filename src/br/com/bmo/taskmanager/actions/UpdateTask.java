@@ -17,7 +17,8 @@ public class UpdateTask implements ControllerAction {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uuid = request.getParameter("uuid");
-		String taskName = request.getParameter("taskName");
+		String taskDescription = request.getParameter("taskDescription");
+		String taskLongDescription = request.getParameter("taskLongDescription");
 		Date dueDate = null; 
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -29,7 +30,8 @@ public class UpdateTask implements ControllerAction {
 		
 		FakeDB taskDao = new FakeDB();
 		TaskModel taskFound = taskDao.selectTaskByUUID(uuid);
-		taskFound.setDescription(taskName);
+		taskFound.setDescription(taskDescription);
+		taskFound.setLongDescription(taskLongDescription);
 		taskFound.setDueDate(dueDate);
 		taskDao.updateTask(taskFound);
 		
