@@ -22,7 +22,8 @@
 				<div class="card-body">
 					<h5 class="card-title">${task.description}</h5>
 					<h6 class="card-subtitle mb-2 text-muted">
-						<b>Due Date:</b> <fmt:formatDate value="${task.dueDate}" pattern="YYYY-MM-dd"/>
+						<fmt:parseDate value="${task.dueDate}" pattern="YYYY-MM-dd" var="taskDueDate" type="date"/>
+						<b>Due Date:</b> <fmt:formatDate value="${taskDueDate}" pattern="YYYY-MM-dd"/>
 					</h6>
 					<p class="card-text">${task.longDescription}</p>
 	
