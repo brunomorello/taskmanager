@@ -3,6 +3,7 @@ package br.com.bmo.taskmanager.actions;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.bmo.taskmanager.dao.FakeDB;
-import br.com.bmo.taskmanager.model.TaskModel;
+import br.com.bmo.taskmanager.model.Task;
 
 public class UpdateTask implements ControllerAction {
 	
@@ -29,10 +30,11 @@ public class UpdateTask implements ControllerAction {
 		}
 		
 		FakeDB taskDao = new FakeDB();
-		TaskModel taskFound = taskDao.selectTaskByUUID(uuid);
+		Task taskFound = taskDao.selectTaskByUUID(uuid);
 		taskFound.setDescription(taskDescription);
 		taskFound.setLongDescription(taskLongDescription);
-		taskFound.setDueDate(dueDate);
+		LocalDateTime dueDateObj = LocalDateTime.of(dueDate.getYear(), dueDate.getMonth(), dueDate.getDate(), 0,  0);
+		taskFound.setDueDate(dueDateObj);
 		taskDao.updateTask(taskFound);
 		
 		return "redirect:controller?action=ListTask";

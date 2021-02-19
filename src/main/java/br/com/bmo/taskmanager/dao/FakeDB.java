@@ -1,23 +1,23 @@
 package br.com.bmo.taskmanager.dao;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import br.com.bmo.taskmanager.model.TaskModel;
+import br.com.bmo.taskmanager.model.Task;
 import br.com.bmo.taskmanager.model.User;
 
 public class FakeDB {
 
-	private static List<TaskModel> tasks = new ArrayList<TaskModel>();
+	private static List<Task> tasks = new ArrayList<Task>();
 	private static List<User> users = new ArrayList<User>();
 	
 	static {
-		TaskModel task1 = new TaskModel("task_test_1", new Date());
+		Task task1 = new Task("task_test_1", LocalDateTime.now());
 		task1.setLongDescription("Example Task");
 		
-		TaskModel task2 = new TaskModel("task_test_2", new Date());
+		Task task2 = new Task("task_test_2", LocalDateTime.now());
 		task2.setLongDescription("Example Task");
 		
 		FakeDB taskDao = new FakeDB();
@@ -30,14 +30,14 @@ public class FakeDB {
 		users.add(user2);
 	}
 	
-	public void createTask(TaskModel task) {
+	public void createTask(Task task) {
 		tasks.add(task);
 	}
 	
-	public void updateTask(TaskModel task) {
+	public void updateTask(Task task) {
 
 		for (int i = 0; i < tasks.size(); i++) {
-			TaskModel currentTask = tasks.get(i);
+			Task currentTask = tasks.get(i);
 			if (currentTask.getUuid().equals(task.getUuid())) {
 				tasks.remove(i);
 				tasks.add(task);
@@ -45,12 +45,12 @@ public class FakeDB {
 		}
 	}
 	
-	public TaskModel selectTaskByUUID(String uuid) {
+	public Task selectTaskByUUID(String uuid) {
 		
-		Iterator<TaskModel> iterator = tasks.iterator();
+		Iterator<Task> iterator = tasks.iterator();
 		
 		while(iterator.hasNext()) {
-			TaskModel currentTask = iterator.next();
+			Task currentTask = iterator.next();
 			if (currentTask.getUuid().equals(uuid))
 				return currentTask;
 		}
@@ -68,17 +68,17 @@ public class FakeDB {
 	}
 	
 	public void deleteTask(String uuid) {
-		Iterator<TaskModel> iterator = tasks.iterator();
+		Iterator<Task> iterator = tasks.iterator();
 		
 		while (iterator.hasNext()) {
-			TaskModel currentTask = iterator.next();
+			Task currentTask = iterator.next();
 			
 			if (currentTask.getUuid().equals(uuid))
 				iterator.remove();
 		}
 	}
 	
-	public List<TaskModel> getTasks() {
+	public List<Task> getTasks() {
 		return tasks;
 	}
 }

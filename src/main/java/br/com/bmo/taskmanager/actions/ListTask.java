@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.bmo.taskmanager.dao.FakeDB;
-import br.com.bmo.taskmanager.model.TaskModel;
+import br.com.bmo.taskmanager.model.Task;
 
 public class ListTask implements ControllerAction {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FakeDB taskDao = new FakeDB();
-		List<TaskModel> tasksList = taskDao.getTasks();
+		List<Task> tasksList = taskDao.getTasks();
 		
 		tasksList.sort((task1, task2) -> { return task1.getDescription().compareTo(task2.getDescription()); });
 		

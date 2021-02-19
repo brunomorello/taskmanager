@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 
 import br.com.bmo.taskmanager.dao.FakeDB;
-import br.com.bmo.taskmanager.model.TaskModel;
+import br.com.bmo.taskmanager.model.Task;
 
 /**
  * Servlet implementation class TaskService
@@ -28,14 +28,14 @@ public class TaskService extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		FakeDB db = new FakeDB();
-		List<TaskModel> tasks = db.getTasks();
+		List<Task> tasks = db.getTasks();
 		
 		String respType = request.getHeader("accept");
 		String respStr = null;
 		
 		if (respType.endsWith("xml")) {
 			XStream xstream = new XStream();
-			xstream.alias("task", TaskModel.class);
+			xstream.alias("task", Task.class);
 			respStr = xstream.toXML(tasks);
 			
 			response.setContentType("Application/xml");

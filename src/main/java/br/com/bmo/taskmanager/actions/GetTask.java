@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.bmo.taskmanager.dao.FakeDB;
-import br.com.bmo.taskmanager.model.TaskModel;
+import br.com.bmo.taskmanager.model.Task;
 
 public class GetTask implements ControllerAction {
 
@@ -16,7 +16,7 @@ public class GetTask implements ControllerAction {
 		String uuid = request.getParameter("uuid");
 		
 		FakeDB taskDao = new FakeDB();
-		TaskModel task = taskDao.selectTaskByUUID(uuid);
+		Task task = taskDao.selectTaskByUUID(uuid);
 		
 		request.setAttribute("task", task);
 		return "forward:formTask.jsp";
