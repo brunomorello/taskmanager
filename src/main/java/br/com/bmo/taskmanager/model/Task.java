@@ -25,13 +25,13 @@ public class Task {
 	private LocalDateTime createdAt = LocalDateTime.now();
 	private LocalDateTime updatedAt = LocalDateTime.now();
 	private LocalDateTime dueDate;
-	private Integer order;
-	private String priority;
+	private Integer sequencyOrder;
+	private String priorityLabel;
 	// If relation is oneToOne, use @JoinColumn(unique=true)
 	@ManyToOne
 	private User owner;
 	@Enumerated(EnumType.STRING)
-	private TaskState state = TaskState.BACKLOG;
+	private TaskState status = TaskState.BACKLOG;
 	
 	@Deprecated
 	public Task() {
@@ -84,19 +84,11 @@ public class Task {
 	}
 
 	public int getOrder() {
-		return order;
+		return sequencyOrder;
 	}
 
 	public void setOrder(int order) {
-		this.order = order;
-	}
-
-	public String getPriority() {
-		return priority;
-	}
-
-	public void setPriority(String priority) {
-		this.priority = priority;
+		this.sequencyOrder = order;
 	}
 
 	public User getOwner() {
@@ -108,11 +100,11 @@ public class Task {
 	}
 
 	public TaskState getState() {
-		return state;
+		return status;
 	}
 
 	public void setState(TaskState state) {
-		this.state = state;
+		this.status = state;
 	}
 
 	public Long getId() {
@@ -129,6 +121,18 @@ public class Task {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	public String getPriorityLabel() {
+		return priorityLabel;
+	}
+
+	public void setPriorityLabel(String priorityLabel) {
+		this.priorityLabel = priorityLabel;
+	}
+
+	public void setOrder(Integer order) {
+		this.sequencyOrder = order;
 	}
 
 	@Override

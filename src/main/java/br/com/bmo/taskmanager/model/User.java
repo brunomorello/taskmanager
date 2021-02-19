@@ -17,7 +17,7 @@ public class User {
 	private String lastName;
 	private String login;
 	private String pwd;
-	private LocalDateTime createdAt;
+	private LocalDateTime createdAt = LocalDateTime.now();
 	private LocalDateTime lastLogin;
 	
 	public User(String firstName, String login, String pwd) {
