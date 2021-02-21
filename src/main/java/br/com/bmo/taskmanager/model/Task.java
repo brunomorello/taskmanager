@@ -1,6 +1,7 @@
 package br.com.bmo.taskmanager.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import br.com.bmo.taskmanager.model.state.TaskState;
@@ -32,6 +34,8 @@ public class Task {
 	private User owner;
 	@Enumerated(EnumType.STRING)
 	private TaskState status = TaskState.BACKLOG;
+	@ManyToMany
+	private List<Category> category;
 	
 	@Deprecated
 	public Task() {
@@ -133,6 +137,30 @@ public class Task {
 
 	public void setOrder(Integer order) {
 		this.sequencyOrder = order;
+	}
+
+	public Integer getSequencyOrder() {
+		return sequencyOrder;
+	}
+
+	public void setSequencyOrder(Integer sequencyOrder) {
+		this.sequencyOrder = sequencyOrder;
+	}
+
+	public TaskState getStatus() {
+		return status;
+	}
+
+	public void setStatus(TaskState status) {
+		this.status = status;
+	}
+
+	public List<Category> getCategory() {
+		return category;
+	}
+
+	public void setCategory(List<Category> category) {
+		this.category = category;
 	}
 
 	@Override
