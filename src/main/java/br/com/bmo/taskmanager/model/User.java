@@ -1,11 +1,13 @@
 package br.com.bmo.taskmanager.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -19,6 +21,8 @@ public class User {
 	private String pwd;
 	private LocalDateTime createdAt = LocalDateTime.now();
 	private LocalDateTime lastLogin;
+	@OneToMany(mappedBy = "owner")
+	private List<Task> tasks;
 	
 	public User(String firstName, String login, String pwd) {
 		this.firstName = firstName;
@@ -77,12 +81,19 @@ public class User {
 	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
 	}
-
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 	
 }
