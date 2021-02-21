@@ -37,7 +37,8 @@
 			</div>
 			
 			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="dueDate" name="dueDate" value="<fmt:formatDate value='${task.dueDate}' pattern='YYYY-MM-dd'/>" placeholder="YYYY-MM-dd"/>
+				<fmt:parseDate value="${task.dueDate}" pattern="YYYY-MM-dd" var="taskDueDate" type="date"/>
+				<input type="text" class="form-control" id="dueDate" name="dueDate" value="<fmt:formatDate value='${taskDueDate}' pattern='YYYY-MM-dd'/>" placeholder="YYYY-MM-dd"/>
 				<label for="dueDate">Due Date</label>
 			</div>
 			
