@@ -14,8 +14,8 @@ public class TestTaskUserRelationship {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("taskmanager");
 		EntityManager em = emf.createEntityManager();
 		
-		User user = new User("fulano", "foo", "123");
-		Task task = new Task("test123", LocalDateTime.now());
+		User user = new User("Bruno Moreno", "bmo", "123");
+		Task task = new Task("Task - Test", LocalDateTime.now());
 		task.setOwner(user);
 		
 		em.getTransaction().begin();
