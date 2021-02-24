@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 
 import br.com.bmo.taskmanager.dao.TaskDao;
 import br.com.bmo.taskmanager.model.Task;
+import br.com.bmo.taskmanager.model.TaskCountByDayMonth;
 
 public class TestTaskReport {
 	public static void main(String[] args) {
@@ -23,5 +24,10 @@ public class TestTaskReport {
 			System.out.println("Owner: " + task.getOwner().getFirstName());
 //			System.out.println("Category: " + task.getCategory());
 		}
+		
+		List<TaskCountByDayMonth> tasksByDayMonth = taskDao.getTaskCountByDayMonth();
+		tasksByDayMonth.stream().forEach(task -> {
+			System.out.println(task.getDay() + "-" + task.getMonth() + " total: " + task.getTotal());
+		});
 	}
 }
