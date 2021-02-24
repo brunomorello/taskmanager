@@ -6,17 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
+//@NamedQuery(name = "countTasksByCategory",query = "select c.name, count(*) from Task t left join fetch Category c")
 @Entity
 public class Category {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 //	@ManyToMany
 //	private List<Task> tasks;
+	//TODO - bug to fix
 
 	@Deprecated
 	public Category() {
